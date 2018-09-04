@@ -1,0 +1,17 @@
+#exclude everythign except directories
+
+.htaccess
+mahalbeauty/
+angeloda_newsite/
+blmintl/
+estheticsbysophie/
+sharontaporco/
+stage/
+pharmatech/
+magento/
+_archive/
+vidz/
+adap/
+madscratchgoat/
+tools/
+vidz/

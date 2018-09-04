@@ -1,0 +1,9 @@
+#!/bin/bash
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+REPO=$(pwd | sed "s/.*\///")
+set -e
+git push bitbucket HEAD:deploy
+git push devcoord HEAD:master
+perl .createPR zijatextzd2 deploy
+ssh designer@qcdev "grep -v \"^$BRANCH$\" /home/david/$REPO.branches | sponge /home/david/$REPO.branches"
+ssh designer@secure2.zijasecure.com "grep -v \"^$BRANCH$\" /home/david/$REPO.branches | sponge /home/david/$REPO.branches"

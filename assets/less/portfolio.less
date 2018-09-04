@@ -1,0 +1,79 @@
+/*
+  06
+  Portfolio
+*/
+#portfolio {
+	border-left: 1px solid @lightgray;
+	border-bottom: 1px solid @lightgray;
+	padding: 0;
+	display: inline-block;
+
+	img {
+		width: 100%;
+	}
+
+	.item {
+		width: 25%;
+		height: 100%;
+		display: block;
+		float: left;
+		margin: 0;
+		padding: 0;
+
+		&:hover {
+
+			img {
+				filter: alpha(opacity=60);
+				opacity: 0.6;
+			}
+		}
+
+		.inner {
+			transition: all 0.7s;
+			overflow: hidden;
+			background: @white;
+
+			img {
+				width: 100%;
+				margin: 0;
+				transition: all 0.3s;
+			}
+
+			.caption {
+				margin-top: 0;
+				padding: 25px 20px 25px;
+				text-align: center;
+				border-right: 1px solid @lightgray;
+
+				h4 {
+					margin-top: 0;
+					color: #222;
+					padding-bottom: 7px;
+					display: inline-block;
+					border-bottom: 1px solid #bbb;
+				}
+
+				p {
+					color: #999;
+					margin-bottom: 0;
+					padding-bottom: 0;
+				}
+			}
+		}
+	}
+}
+
+
+      @media screen and (max-width: 992px) {
+        #portfolio .item .inner {
+          margin: 0 15px; } }
+  @media screen and (max-width: 992px) {
+    #portfolio .item {
+      width: 50%; }
+      #portfolio .item .inner {
+        margin: 0; }
+        #portfolio .item .inner .caption {
+          border-right: 0; } }
+  @media screen and (max-width: 620px) {
+    #portfolio .item {
+      width: 100%; } }

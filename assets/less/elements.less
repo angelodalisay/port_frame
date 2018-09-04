@@ -1,0 +1,88 @@
+/*
+  11
+  Elements
+*/
+.border-bottom {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
+
+img.rounded {
+  border-radius: 10px; }
+
+pre {
+  margin: 30px 0; }
+
+blockquote {
+  position: relative;
+  margin: 30px 0;
+  padding: 0 50px;
+  text-align: center;
+  font-family: 'Lora';
+  font-style: italic;
+  display: inline-block;
+  border: 0; }
+  blockquote:before {
+    content: '“';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-top: -25px;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 3em;
+    font-weight: 300; }
+  blockquote:after {
+    content: '”';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    margin-top: -25px;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 3em;
+    font-weight: 300; }
+  @media screen and (max-width: 992px) {
+    blockquote {
+      padding: 0 20px;
+      font-size: 1.1em; }
+      blockquote:before, blockquote:after {
+        font-size: 1.5em; } }
+
+a.btn {
+  padding: 3px 20px 0;
+  display: inline-block;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  color: #222;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 11px;
+  line-height: 30px;
+  font-weight: bold;
+  border-radius: 0px;
+  transition: all 0.3s; 
+  }
+  a.btn.inset {
+    margin-top: -50px;
+    color: #ccc;
+    background: #222;
+    border-color: #222; 
+  }
+  a.btn.fa {
+    width: 40px;
+    text-align: center;
+    padding: 0;
+    margin-right: 5px; }
+  a.btn .fa {
+    line-height: 20px;
+    width: 0;
+    color: #fff;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    transition: all 0.2s; }
+  a.btn:hover {
+    color: #66b0d8;
+    background: #222;
+    border-color: #222; }
+    a.btn:hover .fa {
+      color: #66b0d8;
+      width: 5px;
+      margin-right: 5px;
+      filter: alpha(opacity=100);
+      opacity: 1; }

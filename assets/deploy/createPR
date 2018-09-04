@@ -1,0 +1,108 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use LWP::UserAgent;
+use JSON::MaybeXS;
+use Data::Dumper;
+
+{
+    my $repo = $ARGV[0];
+    my $source = $ARGV[1];
+
+    # Set the request parameters
+    my $url = "https://api.bitbucket.org/2.0/repositories/zija/$repo/pullrequests?state=OPEN";
+    my $username = 'zija';
+    my $password = 'avdNkdbxdDqpgbNxDxF22TuA5RsPDpXX';
+
+    # Create a user agent and make the request
+    my $ua = LWP::UserAgent->new( ssl_opts => { verify_hostname => 0 } );
+    my $req = HTTP::Request->new( GET => $url );
+    $req->authorization_basic( $username, "$password" );
+    my $response = $ua->request( $req );
+
+    # Check for HTTP error codes
+    if (!$response->is_success) {
+        warn 'http status: '.$response->code.'  '.$response->message.': '.$response->content;
+        exit;
+    }
+
+    # Decode the JSON into a Perl data structure
+    my $data = decode_json($response->content);
+
+    my $deployPrAlreadyOpen = 0;
+    foreach my $value (@{$data->{values}}) {
+        if ($value->{source}{branch}{name} eq $source) {
+            $deployPrAlreadyOpen = 1;
+            exit;
+        }
+    }
+
+    if (!$deployPrAlreadyOpen) {
+        # create a pull request
+        $url = "https://api.bitbucket.org/2.0/repositories/zija/$repo/pullrequests";
+        $repo = uc $repo;
+        my $title;
+        use Time::Piece;
+        my $date = localtime->strftime( '%m/%d/%y' );
+        if ($source eq 'deploy') {
+            $title = "$repo: What's ready to go LIVE ($date)";
+        } elsif ($source eq 'qc') {
+            $title = "$repo: What's on QC ($date)"
+        } else {
+            $title = "$repo: $source branch ($date)"
+        }
+        my $api_arg = {
+            "title" => "$title",
+            "description" => "",
+            "source" => {
+                "branch" => {
+                    "name" => "$source",
+                },
+            },
+
+            "destination" => {
+                "branch" => {
+                    "name" => "master",
+                }
+            },
+            "reviewers" => [
+                {
+                    "username" => "davejensen",
+                },
+                {
+                    "username" => "Jeffm_Zija",
+                },
+                {
+                    "username" => "steve-jensen",
+                },
+                {
+                    "username" => "Dspowelljr",
+                },
+                {
+                    "username" => "angelozija",
+                },
+                {
+                    "username" => "ZijaJake",
+                },
+                {
+                    "username" => "lilianapoggio",
+                },
+                {
+                    "username" => "aye_aye_ron",
+                },
+            ],
+            "close_source_branch" => JSON->false,
+        };
+        my $j = JSON::MaybeXS->new->utf8( 0 );
+        my $json = $j->encode( $api_arg );
+        $req = HTTP::Request->new( POST => $url );
+        $req->authorization_basic( $username, "$password" );
+        $req->header( "Content-Type" => "application/json" );
+        $req->content( $json );
+        $response = $ua->request( $req );
+        if (!$response->is_success) {
+            warn 'http status: '.$response->code.'  '.$response->message.': '.$response->content;
+            exit;
+        }
+    }
+}

@@ -1,0 +1,47 @@
+/*
+	01
+	General
+*/
+#loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999999;
+  background: #efefef; }
+  #loader .bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    width: 0;
+    background: #000; }
+
+.container-fluid {
+  opacity: 1;
+  transition: opacity 0.5s; }
+  .container-fluid.inloading {
+    opacity: 0; }
+  .container-fluid.hide {
+    display: none; }
+
+html, body {
+  font-size: 16px;
+  font-family: "Josefin Sans", Arial, sans-serif;
+  position: relative;
+  display: inline-block;
+  min-height: 100%;
+  width: 100%;
+  background: #efefef; }
+  @media screen and (max-width: 620px) {
+    html, body {
+      font-size: 12px; } }
+  @media screen and (min-width: 1300px) {
+    html, body {
+      font-size: 17px; } }
+
+body {
+  overflow-x: hidden;
+  margin-bottom: -5px; }

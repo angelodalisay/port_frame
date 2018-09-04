@@ -1,0 +1,46 @@
+[core]
+    sharedrepository = true
+[diff]
+    diff-algorithm = minimal
+[push]
+    default = nothing
+[pull]
+    rebase = true
+[alias]
+    sync = !sh -c 'git stash && git checkout master && git pull --rebase origin master'
+    predeploy = !sh -c 'git fetch bitbucket && git pull --rebase bitbucket deploy'
+    deploy = !./.deploy
+    qc = push qcstaging HEAD --force
+    staging = push --force staging HEAD
+[remote "bitbucket"]
+    url = git@bitbucket.org:zija/frontend.git
+    fetch = +refs/heads/*:refs/remotes/bitbucket/*
+[remote "devcoord"]
+    url = designer@54.86.172.146:/home/git/frontend.git
+    fetch = +refs/heads/*:refs/remotes/devcoord/*
+[branch "master"]
+    remote = origin
+    merge = refs/heads/master
+[remote "qcstaging"]
+    url = git@54.86.233.115:/home/git/frontend.git
+    fetch = +refs/heads/*:refs/remotes/qcstaging/*
+[remote "staging"]
+    url = git@secure2.zijasecure.com:/home/git/frontend.git
+    fetch = +refs/head/*:refs/remotes/staging/*
+[remote "origin"]
+    url = git@bitbucket.org:zija/frontend.git
+    fetch = +refs/heads/*:refs/remotes/origin/*
+angelo@angelo-design:/data/sitefiles/frontend$ cat .git/config
+[core]
+    repositoryformatversion = 0
+    filemode = true
+    bare = false
+    logallrefupdates = true
+[remote "origin"]
+    url = git@bitbucket.org:zija/frontend.git
+    fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+    remote = origin
+    merge = refs/heads/master
+[include]
+    path = ../.git-workflow
